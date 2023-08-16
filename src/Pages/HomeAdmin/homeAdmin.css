@@ -1,0 +1,36 @@
+
+
+.titleAdmin{
+    background-image: url('assets/bannerHouse.png');
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 22rem;
+    width: 100%;
+    padding: 4rem;
+    border-radius: 2rem;
+    
+}
+
+
+.iconHome{
+    width: 200rem;
+}
+@media (max-width:768px) {
+    .css-178encs{
+        flex-direction: column;
+    }
+    .css-1sayv3{
+       margin: 5rem 0 0 0 !important;
+        width: 100%;
+        
+        
+    }
+    .css-178encs{
+    align-items: center;
+    }
+  
+    
+}
+

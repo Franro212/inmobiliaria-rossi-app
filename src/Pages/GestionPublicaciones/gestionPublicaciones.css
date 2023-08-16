@@ -1,0 +1,27 @@
+@media (max-width:768px) {
+    .css-1uzwsvd{
+        flex-direction: column;
+        gap: 5rem;
+        margin: 0;
+        align-items: center;
+    }
+    .css-h04k6q{
+        margin: 0;
+       
+    }
+    .css-17i2wmt{
+        gap: 2rem;
+        margin-left: 2rem;
+    }
+    .css-h04k6q{
+        padding: 0;
+        margin: 0 !important;;
+    }
+    .css-ffiql{
+        padding: 0!important;
+    }
+    .css-yw2gka{
+      margin-top: 6rem!important;
+    }
+    
+}

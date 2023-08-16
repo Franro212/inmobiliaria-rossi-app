@@ -1,0 +1,130 @@
+.containerSectInmuebles {
+  padding: 0.1rem;
+  /* background-color: var(--gray); */
+}
+
+.containerCard {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0 27rem;
+  gap: 4rem;
+}
+
+.containerTitleSection {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  margin: 10rem 27rem;
+  text-align: center;
+}
+
+.secTitle {
+  font-size: 3.2rem;
+  margin: 2rem;
+}
+
+.secSubtitle {
+  font-weight: 600;
+  color: var(--red);
+  text-align: center;
+}
+
+.servicesDescription {
+  font-size: 1.6rem;
+}
+
+.contBtnApp {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.btnVerMas {
+  margin: 0;
+}
+
+.imgApp {
+  background-image: url("public/assets/houseInterior.jpg");
+  height: 20rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.containerSectContact {
+  margin: 0 27rem;
+}
+
+.contFormMap {
+  display: flex;
+
+  align-items: center;
+  width: 100%;
+}
+
+.containerFormContact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.contMap {
+  width: 35%;
+}
+@media (max-width: 768px) {
+  .containerSectInmuebles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .containerCard {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    gap: 0.5rem;
+    width: 80%;
+  }
+
+  .containerTitleSection {
+    margin: 0;
+  }
+
+  .secTitle {
+    font-size: 3.2rem;
+    margin: 2rem;
+  }
+
+  .containerSectContact {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contFormMap {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    width: 100vw;
+    gap: 1rem;
+    margin: 0;
+    
+    
+  }
+
+  .containerFormContact {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .contMap {
+    width: 100%;
+    
+  }
+}

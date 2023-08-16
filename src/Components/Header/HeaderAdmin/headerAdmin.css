@@ -1,0 +1,31 @@
+.navLisT:hover {
+  color: var(--red);
+}
+
+.css-18esm8n {
+  background-color: transparent;
+}
+@media (max-width: 768px) {
+  .css-70qvj9 {
+    flex-direction: column;
+  }
+
+  .navAdmin {
+    position: absolute;
+    top: 10rem;
+    left: 0;
+    background-color: #bd212e;
+    width: 100%;
+    height: -webkit-fill-available;
+    transition: 0.3s ease all;
+    z-index: 1;
+    padding-top: 5rem;
+    transform: translateX(-100%);
+  }
+  .navAdmin.open {
+    transform: translateX(0);
+  }
+  .ancla.close {
+    transform: translateX(-100%);
+  }
+}

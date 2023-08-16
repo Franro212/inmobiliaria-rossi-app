@@ -1,0 +1,74 @@
+.contEstudio{
+    display: flex;
+    gap: 5rem;
+    margin-left:  27rem;
+    height: 70vh;
+}
+.contHistoria{
+width: 30%;
+
+}
+.contFlex{
+    display: flex;
+}
+.imagenEstudio{
+    width: 50%;
+    margin: 0.5rem;
+    border-radius: 2rem;
+   
+}
+.tituloPrincipal{
+font-size: 4rem;
+margin-bottom: 2rem;
+}
+.contServicios{
+width: 70%;
+overflow-x: hidden;
+overflow-y: scroll;
+
+}
+.tituloSec{
+font-size: 3rem;
+margin-bottom: 2rem;
+}
+.tituloTerc{
+font-size: 2rem;
+margin: 1rem 0;
+font-weight: bold;
+}
+@media (max-width:768px) {
+
+    .contEstudio{
+    display: flex;
+    flex-direction: column;
+ margin: 0;
+    width: 100%;
+    height: auto;
+}
+.contHistoria{
+width: 100%;
+}
+
+.tituloPrincipal{
+text-align: center;
+}
+.contServicios{
+width: 100%;
+height: 50vh;
+overflow-x: hidden;
+overflow-y: scroll;
+
+
+}
+.tituloSec{
+font-size: 3rem;
+margin-bottom: 2rem;
+text-align: center
+}
+.tituloTerc{
+font-size: 2rem;
+margin: 1rem 0;
+font-weight: bold;
+}
+}
+

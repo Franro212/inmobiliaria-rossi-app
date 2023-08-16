@@ -1,0 +1,43 @@
+.containerEmpresa{
+display: flex;
+margin-left:  27rem;
+gap: 5rem;
+}
+.imagenEmpresa{
+    width: 60rem;
+    border-radius: 3rem;
+}
+.containerImagen{
+    width: 40%;
+    height: auto;
+
+}
+.containerCont{
+width: 50%;
+height: auto;
+}
+.titulo{
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+@media (max-width:768px) {
+    .containerEmpresa{
+        display: flex;
+        flex-direction: column;
+        margin-left: 0;
+       margin: 0 2rem;
+        }
+        .imagenEmpresa{
+            width: 100%;
+            border-radius: 3rem;
+        }
+        .containerImagen{
+            width: 100%;
+            height: auto;
+        
+        }
+        .containerCont{
+        width: 100%;
+        height: auto;
+        }
+}
