@@ -13,32 +13,65 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
-  FormErrorMessage,
   Input,
   Select,
 } from "@chakra-ui/react";
+import ModalComponent from "../Modal/Modal";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function RegisterUser() {
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isOpenModal, setIsOpen] = useState(false);
+  const [isUserCreated, setIsUserCreated] = useState(false);
+  const [modalInfo, setModalInfo] = useState({
+    title: "",
+    desc: "",
+  });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-    await registerUser(data)
-      .then(() => {
-        alert("El usuario se regsitro correctamente");
-      })
-      .catch((error) => {
-        alert(error);
+    try {
+      const response = await registerUser(data);
+      setIsUserCreated(true);
+      setModalInfo({
+        title: "Exitoso!",
+        desc: response.message,
       });
+      onOpenModal();
+    } catch (error) {
+      setIsUserCreated(false);
+      setModalInfo({
+        title: "Error!",
+        desc: error.message,
+      });
+      onOpenModal();
+    }
   };
 
+  const onOpenModal = () => {
+    onClose();
+    setIsOpen(true);
+  };
+
+  const closeForm = () => {
+    if (isUserCreated) {
+      setIsOpen(false);
+      navigate("/gestionUsuarios");
+    } else {
+      onOpenModal();
+    }
+  };
   return (
     <>
+      <ModalComponent
+        desc={modalInfo.desc}
+        handleClose={closeForm}
+        isOpen={isOpenModal}
+        title={modalInfo.title}
+      />
       <Button
         onClick={onOpen}
         fontSize="2xl"
@@ -58,8 +91,15 @@ function RegisterUser() {
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered borderRadius="xxl">
-        <ModalOverlay />
-        <ModalContent w="50%" h="auto" maxW="4xl" rounded="2xl" p="5">
+        <ModalOverlay height={"full"} width={"full"} />
+        <ModalContent
+          left={"250px"}
+          w="500%"
+          h="auto"
+          maxW="4xl"
+          rounded="2xl"
+          p="5"
+        >
           <ModalHeader fontSize="5xl" mb="5">
             Crear usuario
           </ModalHeader>
@@ -80,16 +120,27 @@ function RegisterUser() {
                 my="5"
                 placeholder="Nombre"
                 type="text"
-                {...register("nombre", {
-                  required: true,
-                })}
+                name="firstName"
+                {...register("firstName")}
               />
-              <FormErrorMessage>
-                {errors.nombre?.type === "required" && (
-                  <span>El nombre es requerido</span>
-                )}
-              </FormErrorMessage>
-
+              <br />
+              <Input
+                autoComplete
+                required
+                bg="var(--gray)"
+                border="none"
+                _focus={{
+                  border: "1px solid var(--red)",
+                }}
+                py="10"
+                size="lg"
+                rounded="20"
+                my="5"
+                placeholder="Apellido"
+                type="text"
+                name="lastName"
+                {...register("lastName")}
+              />
               <br />
 
               <Input
@@ -108,16 +159,9 @@ function RegisterUser() {
                 placeholder="Email"
                 required
                 type="email"
-                {...register("email", {
-                  required: true,
-                })}
+                name="email"
+                {...register("email")}
               />
-              <FormErrorMessage>
-                {errors.email?.type === "required" && (
-                  <span>El email es requerido</span>
-                )}
-              </FormErrorMessage>
-
               <br />
 
               <Input
@@ -136,21 +180,8 @@ function RegisterUser() {
                 placeholder="Contraseña"
                 required
                 type="password"
-                {...register("password", { required: true, minLength: 8 })}
+                {...register("password")}
               />
-
-              <FormErrorMessage>
-                {errors.password?.type === "required" && (
-                  <span>El password es requerido</span>
-                )}
-              </FormErrorMessage>
-
-              <FormErrorMessage>
-                {errors.password?.type === "minLength" && (
-                  <span>Como minimo 8 caracterers</span>
-                )}
-              </FormErrorMessage>
-
               <Select
                 required
                 placeholder="Tipo de usuario"
@@ -166,12 +197,12 @@ function RegisterUser() {
                   {...register("tipo_usuario", {
                     required: true,
                   })}
-                  value="1"
+                  value="Admin"
                 >
                   Administrador
                 </option>
                 <option
-                  value="2"
+                  value="Comun"
                   {...register("tipo_usuario", {
                     required: true,
                   })}
