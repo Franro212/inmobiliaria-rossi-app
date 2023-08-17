@@ -13,11 +13,19 @@ import {
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { AddIcon } from "@chakra-ui/icons";
+import ModalComponent from "../Modal/Modal";
 
 function ListadoInmuebles(props) {
   const { inmuebles } = props;
   const [listaInmuebles, setListaInmuebles] = useState([inmuebles]);
   const [editInmuebleId, setEditInmuebleId] = useState(null);
+  const [confirm, setConfirm] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalInfo, setModalInfo] = useState({
+    title: "",
+    desc: "",
+  });
+  const [idInmueble, setIdInmueble] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
     if (editInmuebleId !== null) {
@@ -32,23 +40,45 @@ function ListadoInmuebles(props) {
   const eliminarPorId = async (idInmueble, e) => {
     e.preventDefault();
     try {
-      await eliminarInmueble(idInmueble);
-      alert("Inmueble eliminado");
-
-      const updatedInmuebles = listaInmuebles.filter(
-        (inmueble) => inmueble._id !== idInmueble,
-      );
-      setListaInmuebles(updatedInmuebles);
+      const response = await eliminarInmueble(idInmueble);
+      if (response.error) {
+        throw new Error(response.message);
+      } else {
+        setModalInfo({
+          title: "Success!",
+          desc: response.message,
+        });
+        const updatedInmuebles = listaInmuebles.filter(
+          (inmueble) => inmueble._id !== idInmueble,
+        );
+        setListaInmuebles(updatedInmuebles);
+        setConfirm(false);
+      }
     } catch (error) {
-      alert(error);
+      setModalInfo({
+        title: "Error!",
+        desc: error.message,
+      });
+      setConfirm(false);
     }
   };
   useEffect(() => {
     setListaInmuebles(inmuebles);
   }, [inmuebles]);
+  const switchIsOpen = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <>
+      <ModalComponent
+        confirmModal={confirm}
+        deleteFunction={(e) => eliminarPorId(idInmueble, e)}
+        desc={modalInfo.desc}
+        handleClose={switchIsOpen}
+        isOpen={isOpen}
+        title={modalInfo.title}
+      />
       <TableContainer mt="10">
         <Link to={"/registrarInmueble"}>
           <Button
@@ -93,7 +123,15 @@ function ListadoInmuebles(props) {
                 return (
                   <Tr key={inmueble._id}>
                     <Button
-                      onClick={(e) => eliminarPorId(inmueble._id, e)}
+                      onClick={() => {
+                        setIdInmueble(inmueble._id);
+                        setConfirm(true);
+                        setIsOpen(true);
+                        setModalInfo({
+                          title:"Confirmar",
+                          desc: "Esta seguro que quiere eliminar el inmueble?",
+                        });
+                      }}
                       fontSize="3xl"
                       bg="var(--red)"
                       color="var(--white)"
