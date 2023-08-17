@@ -21,7 +21,6 @@ import App from "./Routes/App/App";
 
 import { ChakraProvider } from "@chakra-ui/react";
 import "./index.css";
-import ModificarId from "./Components/ComponentsInmu/ModificarId";
 import Empresa from "./Pages/Empresa/Empresa";
 import Estudio from "./Pages/Estudio/Estudio";
 
@@ -85,14 +84,6 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <RegistrarInmueble />,
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: "modificar",
-    element: (
-      <ProtectedRoute>
-        <ModificarId />,
       </ProtectedRoute>
     ),
   },

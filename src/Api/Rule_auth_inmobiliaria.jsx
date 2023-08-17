@@ -2,7 +2,7 @@ import API from "./Rule_Api";
 
 const handleApiError = (error) => {
   console.log(error);
-  throw error.response?.data?.error || "Error procesando la solicitud";
+  throw error.response.data.message || "Error procesando la solicitud";
 };
 
 const makeApiRequest = async (method, url, data = null, config = {}) => {
