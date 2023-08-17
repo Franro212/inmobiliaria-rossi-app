@@ -1,51 +1,41 @@
-import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
-import React from "react";
-
-function ModalComponent( title, text, isOpenModal, isCloseModal, isConfirm) {
-  const OverlayOne = () => (
-    <ModalOverlay
-      bg="blackAlpha.300"
-      backdropFilter="blur(10px) hue-rotate(90deg)"
-    />
-  );
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [overlay, setOverlay] = React.useState(<OverlayOne />);
-
-  return (
-    <>
-      <Button
-        onClick={() => {
-          setOverlay(<OverlayOne />);
-          onOpen();
-        }}
-      >
-        Use Overlay one
-      </Button>
-      <Modal isCentered isOpen={isOpen} onClose={onClose}>
-        {overlay}
-        <ModalContent>
-          <ModalHeader></ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Text>Custom backdrop filters!</Text>
-          </ModalBody>
-          <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
-  );
+import { Button } from "@chakra-ui/react";
+import styles from "./modal.module.css";
+function ModalComponent({
+  title,
+  desc,
+  isOpen,
+  handleClose,
+  confirmModal,
+  deleteFunction,
+}) {
+  return isOpen ? (
+    confirmModal ? (
+      <div className={styles.modal}>
+        <div className={styles.modalContainer} data-testid="modal-confirm">
+          <h3>{title}</h3>
+          <p>{desc}</p>
+          <div className={styles.btnsContainer}>
+            <Button size='lg' type="button" onClick={handleClose}>
+              Cancelar
+            </Button>
+            <Button  size='lg'backgroundColor={"var(--red)"} color={"var(--white)"} onClick={deleteFunction} type="button">
+              Confirmar
+            </Button>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div className={styles.modal}>
+        <div className={styles.modalContainer} data-testid="modal-success">
+          <h3>{title}</h3>
+          <p>{desc}</p>
+          <div className={styles.btnContainer}>
+            <Button size='lg'  onClick={handleClose} type="button">Aceptar</Button>
+          </div>
+        </div>
+      </div>
+    )
+  ) : null;
 }
+
 export default ModalComponent;
