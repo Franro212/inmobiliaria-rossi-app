@@ -1,8 +1,7 @@
-import React from "react";
 import HeaderAdmin from "../../Components/Header/HeaderAdmin/HeaderAdmin";
 import ListUsers from "../../Components/ComponentsUser/ListUser";
 import RegisterUser from "../../Components/ComponentsUser/RegisterUser";
-import DeleteUser from "../../Components/ComponentsUser/DeleteUser";
+
 
 import { Text, Flex, Box } from "@chakra-ui/react";
 
@@ -23,7 +22,6 @@ function GestionUsuarios() {
       </Flex>
 
       <Flex flexDirection="column" mx="27rem" my="20">
-        <DeleteUser />
         <ListUsers />
       </Flex>
     </>
