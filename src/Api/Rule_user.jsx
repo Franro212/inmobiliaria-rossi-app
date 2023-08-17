@@ -37,6 +37,6 @@ export const modifyUser = async (id_usuario, userData) => {
 };
 
 export const deleteUser = async (id_usuario) => {
-  const url = `/api/user/deleteUser/${id_usuario}`;
+  const url = `/api/user/${id_usuario}`;
   return await makeApiRequest("delete", url);
 };
