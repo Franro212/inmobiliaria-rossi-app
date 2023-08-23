@@ -23,6 +23,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import "./index.css";
 import Empresa from "./Pages/Empresa/Empresa";
 import Estudio from "./Pages/Estudio/Estudio";
+import Propiedades from "./Pages/Propiedades/Propiedades";
 
 //---------------- Rutas protegidas --------------//
 
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: "pageLogin",
     element: <PageLogin />,
+  },
+  {
+    path: "pagePropiedades",
+    element: <Propiedades />,
   },
 
   {
