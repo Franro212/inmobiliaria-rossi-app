@@ -4,14 +4,9 @@ import "./footer.css";
 function Footer() {
   return (
     <div className="contFooter">
-      
       <div className="footer">
         <a href="/">
-          <img
-            className="logo"
-            src="/assets/logoSinFondo.png"
-            alt="logo"
-          />
+          <img className="logo" src="/assets/logoSinFondo.png" alt="logo" />
         </a>
         <ul className="footerList">
           <li className="liFooter">
@@ -37,9 +32,9 @@ function Footer() {
 
       <div className="copyRight">
         <p className="ubicacion">LAS PIEDRAS - CANELONES - URUGUAY</p>
-          <br />
+        <br />
         <p className="derechos">
-           Inmobiliaria Rossi. © 2023. Todos los derechos reservados.
+          Inmobiliaria Rossi. © 2023. Todos los derechos reservados.
         </p>
       </div>
     </div>

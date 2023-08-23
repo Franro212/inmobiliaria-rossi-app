@@ -14,7 +14,7 @@ function Main() {
           profesional y serio, logrando el objetivo propuesto al cliente.
         </p>
         <button className="btnRed btnMain">
-          <Link to={"/"} className="btnRed btnMain">
+          <Link to={"/pagePropiedades"} className="btnRed btnMain">
             Buscar propiedades
           </Link>
         </button>
