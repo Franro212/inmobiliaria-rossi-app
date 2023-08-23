@@ -9,8 +9,23 @@ import { AspectRatio } from "@chakra-ui/react";
 
 import "./App.css";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getListaInmuebles } from "../../Api/Rule_auth_inmobiliaria";
 
 function App() {
+  const [inmuebles, setInmuebles] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getListaInmuebles();
+        setInmuebles(response.data);
+      } catch (error) {
+        alert(error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <>
       <div>
@@ -31,8 +46,11 @@ function App() {
           <h2 className="secTitle">Últimos ingresos</h2>
         </div>
         <div className="containerCard">
-          <CardInmuebleHome />
+          {inmuebles.slice(0, 4).map((inmueble, index) => (
+            <CardInmuebleHome key={index} inmueble={inmueble} />
+          ))}
         </div>
+
         <div className="contBtnApp">
           <Link to={"/"}>
             {" "}
