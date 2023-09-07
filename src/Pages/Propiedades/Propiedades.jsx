@@ -21,6 +21,7 @@ function Propiedades() {
         const response = await getListaInmuebles();
         const filteredInmuebles = applyFilters(response.data, filtros);
         setInmuebles(filteredInmuebles);
+        console.log(response.data);
       } catch (error) {
         alert(error);
       }
@@ -126,8 +127,8 @@ function Propiedades() {
       </Flex>
       <Flex margin="100px 200px" wrap="wrap" gap={"50px"}>
         {inmuebles.map((inmueble, index) => (
-          <Link to key={index}>
-            <CardInmuebleHome  inmueble={inmueble} />
+          <Link to={`/pageDetallePropiedade/${inmueble._id}`} key={index}>
+            <CardInmuebleHome inmueble={inmueble} />
           </Link>
         ))}
       </Flex>

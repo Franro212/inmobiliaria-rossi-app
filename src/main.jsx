@@ -24,6 +24,7 @@ import "./index.css";
 import Empresa from "./Pages/Empresa/Empresa";
 import Estudio from "./Pages/Estudio/Estudio";
 import Propiedades from "./Pages/Propiedades/Propiedades";
+import DetallePropiedad from "./Pages/DetallePropiedad/DetallePropiedad";
 
 //---------------- Rutas protegidas --------------//
 
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "pagePropiedades",
     element: <Propiedades />,
+  },
+  {
+    path: "pageDetallePropiedade/:id",
+    element: <DetallePropiedad />,
   },
 
   {

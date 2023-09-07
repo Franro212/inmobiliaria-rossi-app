@@ -27,9 +27,6 @@ function RegistroInmueble() {
   const [inmuebleId, setInmuebleId] = useState({});
   const [title, setTitle] = useState("");
   const [textButton, setButton] = useState("");
-  const [textTipoOperacion, setTextTipoOperacion] = useState("");
-  const [textTipoInmueble, setTextTipoInmueble] = useState("");
-  const [textTipoMoneda, setTextTipoMoneda] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isActivityCreated, setIsActivityCreated] = useState(false);
   const [modalInfo, setModalInfo] = useState({
@@ -115,9 +112,6 @@ function RegistroInmueble() {
     if (!id) {
       setTitle("Nueva publicación");
       setButton("Crear");
-      setTextTipoInmueble("Tipo de inmueble");
-      setTextTipoMoneda("Tipo de moneda");
-      setTextTipoOperacion("Tipo de operacion");
     } else {
       setTitle("Editar publicación");
       setButton("Editar");
@@ -138,7 +132,6 @@ function RegistroInmueble() {
       navigate("/gestionPublicaciones");
     } else {
       switchIsOpen();
-      
     }
   };
 
@@ -173,12 +166,13 @@ function RegistroInmueble() {
             <Flex direction="column" w="100%">
               <label>Tipo de Operacion</label>
               <select
+                defaultValue={"tipo_operacion"}
                 className="select-form"
                 name="tipo_operacion"
                 {...register("tipo_operacion")}
               >
                 <option selected disabled>
-                  {textTipoOperacion}
+                  Tipo de Operacion
                 </option>
                 <option value="Venta">Venta</option>
                 <option value="Alquiler">Alquiler</option>
@@ -187,15 +181,18 @@ function RegistroInmueble() {
             <Flex direction="column" w="100%">
               <label>Tipo de inmueble</label>
               <select
+                defaultValue={
+                  inmuebleId && inmuebleId.tipo_operacion
+                    ? inmuebleId.tipo_operacion
+                    : ""
+                }
                 className="select-form"
                 name="tipo_inmueble"
                 placeholder="Tipo de inmueble"
                 fontSize="2xl"
                 {...register("tipo_inmueble")}
               >
-                <option selected disabled>
-                  {textTipoInmueble}
-                </option>
+                <option disabled>Tipo de inmueble</option>
                 <option value="Apartamento">Apartamento</option>
                 <option value="Casa">Casa</option>
                 <option value="Terreno">Terreno</option>
@@ -352,6 +349,7 @@ function RegistroInmueble() {
               <Flex direction="column" w="100%">
                 <label>Tipo de moneda</label>
                 <select
+                  defaultValue={"moneda"}
                   className="select-form"
                   name="moneda"
                   placeholder="Tipo de Moneda"
@@ -359,7 +357,7 @@ function RegistroInmueble() {
                   {...register("moneda")}
                 >
                   <option selected disabled>
-                    {textTipoMoneda}
+                    Tipo de moneda
                   </option>
                   <option value="USD">USD</option>
                   <option value="$">$</option>
