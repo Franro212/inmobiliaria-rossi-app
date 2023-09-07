@@ -52,7 +52,7 @@ function App() {
         </div>
 
         <div className="contBtnApp">
-          <Link to={"/"}>
+          <Link to={"/pagePropiedades"}>
             {" "}
             <button className="btnRed btnVerMas">Ver más inmuebles </button>
           </Link>
