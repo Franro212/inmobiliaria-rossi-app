@@ -29,8 +29,8 @@ function HeaderAdmin() {
       p="30"
       bg="var(--gray)"
     >
-      <Link href="/">
-        <Image w="10rem" src="assets/logoSinFondoSencillo.png" alt="logo" />
+      <Link to={"/homeAdmin"}>
+        <Image w="10rem" src="public/assets/logoSinFondo.png" alt="logo" />
       </Link>
 
       <Breadcrumb separator=" " className={`navAdmin  ${Open && "open"}`}>
@@ -55,11 +55,11 @@ function HeaderAdmin() {
       <Button
         onClick={closeSesion}
         p={10}
-        fontSize={'15px'}
+        fontSize={"15px"}
         borderRadius="3rem"
         _hover={{ bg: "var(--white)" }}
       >
-        <HiOutlineArrowRightOnRectangle fontSize={'20px'} />
+        <HiOutlineArrowRightOnRectangle fontSize={"20px"} />
         Cerrar sesion
       </Button>
     </Flex>
