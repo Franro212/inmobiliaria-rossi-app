@@ -3,7 +3,7 @@ let ObjServicios = [
     id: "0",
     nombre: "Préstamos",
     descripcion: "Obtené tu casa propia mediante préstamos hipotecarios",
-    img: "public/images/borrow2",
+    img: "public/images/borrow2.png",
   },
   {
     id: "1",
