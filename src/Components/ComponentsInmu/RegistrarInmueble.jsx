@@ -5,7 +5,7 @@ import {
   getInmueblePorId,
   modificarInmueble,
 } from "../../Api/Rule_auth_inmobiliaria";
-import HeaderAdmin from "../../Components/Header/HeaderAdmin/HeaderAdmin";
+import HeaderAdmin from "../Header/HeaderAdmin/HeaderAdmin";
 import "./compInmu.css";
 
 import {
@@ -16,6 +16,7 @@ import {
   Flex,
   FormLabel,
   Heading,
+  Spinner,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ModalComponent from "../Modal/Modal";
@@ -23,7 +24,7 @@ import ModalComponent from "../Modal/Modal";
 function RegistroInmueble() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, setValue } = useForm();
   const [inmuebleId, setInmuebleId] = useState({});
   const [title, setTitle] = useState("");
   const [textButton, setButton] = useState("");
@@ -33,28 +34,35 @@ function RegistroInmueble() {
     title: "",
     desc: "",
   });
+  const [spinnerOn, setSpinnerOn] = useState(false);
 
   const handleReset = () => {
     reset();
   };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
-    if (id) {
-      fetchInmuebleById();
-    }
-    setGestionTitleAndButton();
+    const fetchData = async () => {
+      if (id) {
+        setSpinnerOn(true);
+        try {
+          const response = await getInmueblePorId(id);
+          setInmuebleId(response.data);
+          // Establece los valores iniciales de los campos del formulario.
+          Object.keys(response.data).forEach((key) => {
+            setValue(key, response.data[key]);
+          });
+        } catch (error) {
+          alert(error);
+        }
+        setSpinnerOn(false);
+      }
+      setGestionTitleAndButton();
+    };
 
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
 
-  const fetchInmuebleById = async () => {
-    try {
-      const response = await getInmueblePorId(id);
-      setInmuebleId(response.data);
-    } catch (error) {
-      alert(error);
-    }
-  };
   const onSubmit = async (data, e) => {
     const formData = new FormData();
     if (!id) {
@@ -73,7 +81,6 @@ function RegistroInmueble() {
       formData.append("garantia", data.garantia);
       formData.append("barrio", data.barrio);
       formData.append("moneda", data.moneda);
-      console.log(formData);
     }
 
     const config = {
@@ -86,12 +93,15 @@ function RegistroInmueble() {
       if (!id) {
         const response = await agregarInmueble(formData, config);
         setIsActivityCreated(true);
+        setSpinnerOn(true);
         setModalInfo({
           title: "Exitoso!",
           desc: response.message,
         });
       } else {
         const response = await modificarInmueble(data, id);
+        setIsActivityCreated(true);
+        setSpinnerOn(true);
         setModalInfo({
           title: "Exitoso!",
           desc: response.message,
@@ -105,6 +115,7 @@ function RegistroInmueble() {
         desc: error.message,
       });
     }
+    setSpinnerOn(false);
     switchIsOpen();
   };
 
@@ -115,20 +126,20 @@ function RegistroInmueble() {
     } else {
       setTitle("Editar publicación");
       setButton("Editar");
-      console.log(inmuebleId);
     }
   };
 
   const backPage = () => {
     navigate(-1);
   };
+
   const switchIsOpen = () => {
     setIsOpen(!isOpen);
   };
 
   const closeForm = () => {
+    setIsOpen(false);
     if (isActivityCreated) {
-      setIsOpen(false);
       navigate("/gestionPublicaciones");
     } else {
       switchIsOpen();
@@ -143,6 +154,21 @@ function RegistroInmueble() {
         isOpen={isOpen}
         title={modalInfo.title}
       />
+
+      {spinnerOn ? (
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+          position="fixed"
+          top="50%"
+          left="50%"
+          transform="translate(-50%, -50%)"
+        />
+      ) : null}
+
       <HeaderAdmin />
       <Flex mx="27rem" mt="10" className="navRegistrar">
         <Breadcrumb fontSize="2xl" className="navRegistrar">
@@ -159,27 +185,26 @@ function RegistroInmueble() {
           </BreadcrumbItem>
         </Breadcrumb>
       </Flex>
+
       <Flex mx="27rem" mt="20" justifyContent="space-between">
         <form onSubmit={handleSubmit(onSubmit)} className="formRegistrarInmu">
           <Heading mb="32">{title}</Heading>
           <div className="cont-cont-selct">
             <Flex direction="column" w="100%">
-              <label>Tipo de Operacion</label>
+              <label>Tipo de Operación</label>
               <select
                 defaultValue={"tipo_operacion"}
                 className="select-form"
                 name="tipo_operacion"
                 {...register("tipo_operacion")}
               >
-                <option selected disabled>
-                  Tipo de Operacion
-                </option>
+                <option disabled>Tipo de Operación</option>
                 <option value="Venta">Venta</option>
                 <option value="Alquiler">Alquiler</option>
               </select>
             </Flex>
             <Flex direction="column" w="100%">
-              <label>Tipo de inmueble</label>
+              <label>Tipo de Inmueble</label>
               <select
                 defaultValue={
                   inmuebleId && inmuebleId.tipo_operacion
@@ -188,11 +213,11 @@ function RegistroInmueble() {
                 }
                 className="select-form"
                 name="tipo_inmueble"
-                placeholder="Tipo de inmueble"
+                placeholder="Tipo de Inmueble"
                 fontSize="2xl"
                 {...register("tipo_inmueble")}
               >
-                <option disabled>Tipo de inmueble</option>
+                <option disabled>Tipo de Inmueble</option>
                 <option value="Apartamento">Apartamento</option>
                 <option value="Casa">Casa</option>
                 <option value="Terreno">Terreno</option>
@@ -204,12 +229,12 @@ function RegistroInmueble() {
 
           <Flex gap="10">
             <Flex direction="column" w="100%">
-              <label>Cantidad de baños</label>
+              <label>Cantidad de Baños</label>
               <input
                 className="select-form"
                 fontSize="2xl"
                 placeholder="Cant. Baños"
-                autoComplete
+                autoComplete="off"
                 type="number"
                 name="banio"
                 defaultValue={inmuebleId.banio}
@@ -223,7 +248,7 @@ function RegistroInmueble() {
                 fontSize="2xl"
                 placeholder="Cant. Dormitorios"
                 name="dormitorio"
-                autoComplete
+                autoComplete="off"
                 type="number"
                 defaultValue={inmuebleId.dormitorio}
                 {...register("dormitorio")}
@@ -234,13 +259,13 @@ function RegistroInmueble() {
 
           <Flex gap="5">
             <Flex direction="column" w="100%">
-              <label>Superficie del terreno</label>
+              <label>Superficie del Terreno</label>
               <input
                 className="select-form"
                 fontSize="2xl"
-                autoComplete
+                autoComplete="off"
                 name="m2_terreno"
-                placeholder="Superficie del terreno"
+                placeholder="Superficie del Terreno"
                 type="number"
                 defaultValue={inmuebleId.m2_terreno}
                 {...register("m2_terreno")}
@@ -249,12 +274,12 @@ function RegistroInmueble() {
           </Flex>
           <br />
           <Flex direction="column" w="100%">
-            <label>Superficie edificada</label>
+            <label>Superficie Edificada</label>
             <input
               className="select-form"
               fontSize="2xl"
-              placeholder=" Superficie edificada"
-              autoComplete
+              placeholder="Superficie Edificada"
+              autoComplete="off"
               name="m2_edificado"
               type="number"
               defaultValue={inmuebleId.m2_edificado}
@@ -270,7 +295,7 @@ function RegistroInmueble() {
                 <input
                   className="select-form"
                   fontSize="2xl"
-                  autoComplete
+                  autoComplete="off"
                   placeholder="Departamento"
                   required
                   type="text"
@@ -281,11 +306,11 @@ function RegistroInmueble() {
               </Flex>
               <br />
               <Flex direction="column" w="100%">
-                <label>Cuidad</label>
+                <label>Ciudad</label>
                 <input
                   className="select-form"
                   fontSize="2xl"
-                  autoComplete
+                  autoComplete="off"
                   placeholder="Ciudad"
                   required
                   type="text"
@@ -304,7 +329,7 @@ function RegistroInmueble() {
                   className="select-form"
                   fontSize="2xl"
                   placeholder="Barrio"
-                  autoComplete
+                  autoComplete="off"
                   type="text"
                   name="barrio"
                   defaultValue={inmuebleId.barrio}
@@ -313,11 +338,11 @@ function RegistroInmueble() {
               </Flex>
               <br />
               <Flex direction="column" w="100%">
-                <label>Direccion</label>
+                <label>Dirección</label>
                 <input
                   className="select-form"
                   fontSize="2xl"
-                  autoComplete
+                  autoComplete="off"
                   placeholder="Dirección"
                   required
                   type="text"
@@ -334,12 +359,12 @@ function RegistroInmueble() {
           <Flex gap="10">
             <Flex flexDirection="column" w="50%">
               <Flex direction="column" w="100%">
-                <label>Garantia</label>
+                <label>Garantía</label>
                 <input
                   className="select-form"
                   fontSize="2xl"
                   placeholder="Garantía"
-                  autoComplete
+                  autoComplete="off"
                   type="text"
                   name="garantia"
                   defaultValue={inmuebleId.garantia}
@@ -347,7 +372,7 @@ function RegistroInmueble() {
                 />
               </Flex>
               <Flex direction="column" w="100%">
-                <label>Tipo de moneda</label>
+                <label>Tipo de Moneda</label>
                 <select
                   defaultValue={"moneda"}
                   className="select-form"
@@ -356,9 +381,7 @@ function RegistroInmueble() {
                   fontSize="2xl"
                   {...register("moneda")}
                 >
-                  <option selected disabled>
-                    Tipo de moneda
-                  </option>
+                  <option disabled>Tipo de Moneda</option>
                   <option value="USD">USD</option>
                   <option value="$">$</option>
                 </select>
@@ -368,9 +391,9 @@ function RegistroInmueble() {
                 <input
                   className="select-form"
                   fontSize="2xl"
-                  autoComplete
                   placeholder="Precio"
                   required
+                  autoComplete="off"
                   name="precio"
                   type="number"
                   defaultValue={inmuebleId.precio}
@@ -380,7 +403,7 @@ function RegistroInmueble() {
               <br />
             </Flex>
             <Flex direction="column" w="100%">
-              <label>Descripcion</label>
+              <label>Descripción</label>
               <textarea
                 className="select-form"
                 placeholder="Descripción"
@@ -402,7 +425,7 @@ function RegistroInmueble() {
               multiple
               placeholder="Imagen"
               fontSize="2xl"
-              autoComplete
+              autoComplete="off"
               required
               name="images"
               type="file"
