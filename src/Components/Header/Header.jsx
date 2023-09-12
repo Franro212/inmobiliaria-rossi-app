@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
-import {useState } from "react";
+import { useState } from "react";
 import "./header.css";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-
 function Header() {
-  const [isOpen, setOpen] = useState(false)
-
+  const [isOpen, setOpen] = useState(false);
 
   return (
     <div className="header">
@@ -26,8 +24,12 @@ function Header() {
               Empresa
             </Link>
           </li>
-          <li className="liHeader"> 
-            <a className="ancla" onClick={()=>setOpen(!isOpen)} href="/#servicios">
+          <li className="liHeader">
+            <a
+              className="ancla"
+              onClick={() => setOpen(!isOpen)}
+              href="/#servicios"
+            >
               Servicios
             </a>
           </li>
@@ -37,16 +39,19 @@ function Header() {
             </Link>
           </li>
           <li className="liHeader">
-            <a className="ancla" onClick={()=>setOpen(!isOpen)} href="#contacto">
+            <a
+              className="ancla"
+              onClick={() => setOpen(!isOpen)}
+              href="#contacto"
+            >
               Contacto
             </a>
           </li>
         </ul>
-        <div className="toggle" onClick={()=>setOpen(!isOpen)}>
-        <GiHamburgerMenu />
-      </div>
+        <div className="toggle" onClick={() => setOpen(!isOpen)}>
+          <GiHamburgerMenu />
+        </div>
       </nav>
-      
 
       <Link to={"/pageLogin"}>
         <button className="btnGray">Iniciar sesión</button>

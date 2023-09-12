@@ -157,7 +157,6 @@ function RegisterUser() {
                 my="5"
                 className="input-form"
                 placeholder="Email"
-                required
                 type="email"
                 name="email"
                 {...register("email")}
@@ -178,12 +177,10 @@ function RegisterUser() {
                 my="5"
                 className="input-form"
                 placeholder="Contraseña"
-                required
                 type="password"
                 {...register("password")}
               />
               <Select
-                required
                 placeholder="Tipo de usuario"
                 fontSize="xxl"
                 bg="var(--gray)"
@@ -192,21 +189,12 @@ function RegisterUser() {
                 size="lg"
                 rounded="20"
                 my="5"
+                {...register("tipo_usuario")}
               >
-                <option
-                  {...register("tipo_usuario", {
-                    required: true,
-                  })}
-                  value="Admin"
-                >
+                <option  value="Admin">
                   Administrador
                 </option>
-                <option
-                  value="Comun"
-                  {...register("tipo_usuario", {
-                    required: true,
-                  })}
-                >
+                <option value="Comun">
                   Usuario
                 </option>
               </Select>

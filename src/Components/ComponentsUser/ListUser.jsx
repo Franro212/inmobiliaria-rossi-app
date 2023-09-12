@@ -61,7 +61,7 @@ function ListUsers() {
 
   useEffect(() => {
     listarUsuarios();
-  }, []);
+  }, [usuarios]);
   const switchIsOpen = () => {
     setIsOpen(!isOpen);
   };
