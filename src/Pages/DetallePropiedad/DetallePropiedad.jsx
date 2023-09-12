@@ -43,13 +43,8 @@ function DetallePropiedad() {
   useEffect(() => {
     if (inmueble && inmueble.direccion && inmueble.ciudad) {
       const direccionCompleta = `${inmueble.direccion}, ${inmueble.ciudad}, Uruguay`;
-
-      // URL de la API de OpenCage con la clave de API y la dirección codificada
-      const apiKey = "bb6b295ff45a41729357103f3751ce6d";
       const encodedAddress = encodeURIComponent(direccionCompleta);
-      const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodedAddress}&key=${apiKey}`;
-
-      // Realiza una solicitud HTTP a la API de OpenCage
+      const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodedAddress}&key=${import.meta.env.VITE_API_KEY}`;
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
