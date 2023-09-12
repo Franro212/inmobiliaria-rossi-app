@@ -22,6 +22,7 @@ import { useEffect, useState } from "react";
 import ModalComponent from "../Modal/Modal";
 
 function RegistroInmueble() {
+  const [edit, setEdit] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
   const { register, handleSubmit, reset, setValue } = useForm();
@@ -44,6 +45,7 @@ function RegistroInmueble() {
     const fetchData = async () => {
       if (id) {
         setSpinnerOn(true);
+        setEdit(true);
         try {
           const response = await getInmueblePorId(id);
           setInmuebleId(response.data);
@@ -169,7 +171,7 @@ function RegistroInmueble() {
         />
       ) : null}
 
-      <HeaderAdmin />
+      <HeaderAdmin edit={edit} />
       <Flex mx="27rem" mt="10" className="navRegistrar">
         <Breadcrumb fontSize="2xl" className="navRegistrar">
           <BreadcrumbItem className="navRegistrar">

@@ -12,7 +12,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-function HeaderAdmin() {
+function HeaderAdmin(edit) {
   const navigate = useNavigate();
   const closeSesion = () => {
     sessionStorage.removeItem("token");
@@ -30,7 +30,15 @@ function HeaderAdmin() {
       bg="var(--gray)"
     >
       <Link to={"/homeAdmin"}>
-        <Image w="10rem" src="public/assets/logoSinFondo.png" alt="logo" />
+        <Image
+          w="10rem"
+          src={
+            edit
+              ? "../public/assets/logoSinFondo.png"
+              : "public/assets/logoSinFondo.png"
+          }
+          alt="logo"
+        />
       </Link>
 
       <Breadcrumb separator=" " className={`navAdmin  ${Open && "open"}`}>
