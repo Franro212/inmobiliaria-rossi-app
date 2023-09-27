@@ -68,7 +68,10 @@ function RegistroInmueble() {
   const onSubmit = async (data, e) => {
     const formData = new FormData();
     if (!id) {
-      formData.append("images", data.images[0]);
+      for (let i = 0; i <= 6; i++) {
+        const images = data.images[i];
+        formData.append("images", images);
+      }
       formData.append("m2_edificado", data.m2_edificado);
       formData.append("m2_terreno", data.m2_terreno);
       formData.append("precio", data.precio);

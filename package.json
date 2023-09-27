@@ -25,6 +25,7 @@
     "react-geocode": "^0.2.3",
     "react-hook-form": "^7.45.4",
     "react-icons": "^4.10.1",
+    "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.15.0"
   },
   "devDependencies": {

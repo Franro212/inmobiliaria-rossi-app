@@ -20,6 +20,8 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 import "leaflet-control-geocoder/dist/Control.Geocoder.js";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 function DetallePropiedad() {
   const [inmueble, setInmuebleById] = useState(null);
@@ -30,6 +32,7 @@ function DetallePropiedad() {
       try {
         const response = await getInmueblePorId(id);
         setInmuebleById(response.data);
+        console.log(response);
       } catch (error) {
         alert(error);
       }
@@ -44,7 +47,9 @@ function DetallePropiedad() {
     if (inmueble && inmueble.direccion && inmueble.ciudad) {
       const direccionCompleta = `${inmueble.direccion}, ${inmueble.ciudad}, Uruguay`;
       const encodedAddress = encodeURIComponent(direccionCompleta);
-      const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodedAddress}&key=${import.meta.env.VITE_API_KEY}`;
+      const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodedAddress}&key=${
+        import.meta.env.VITE_API_KEY
+      }`;
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
@@ -75,16 +80,23 @@ function DetallePropiedad() {
     <>
       <Header />
       <Flex flexDirection={"row"} margin={"100px 300px"}>
-        {inmueble && inmueble.images && inmueble.images[0] ? (
-          <Flex width={"50%"} height={"100vh"}>
-            <Image
-              width={"95%"}
-              height={"80%"}
-              src={`data:${inmueble.images[0].contentType};base64,${inmueble.images[0].data}`}
-              alt="imagen de inmueble"
-            />
+        {inmueble && inmueble.images && inmueble.images.length > 0 ? (
+          <Flex width={"50%"} height={"100vh"} marginRight={"20px"}>
+            <Carousel showThumbs={false} dynamicHeight>
+              {inmueble.images.map((image, index) => (
+                <div key={index}>
+                  <Image
+                    width={"95%"}
+                    height={"80%"}
+                    src={`data:${image.contentType};base64,${image.data}`}
+                    alt={`imagen ${index + 1} de inmueble`}
+                  />
+                </div>
+              ))}
+            </Carousel>
           </Flex>
         ) : null}
+
         {inmueble ? (
           <Flex width={"50%"}>
             <Flex width="100%" flexDirection={"column"}>
@@ -92,7 +104,9 @@ function DetallePropiedad() {
                 <Table size="lg" variant="simple">
                   <Thead>
                     <Tr>
-                      <Th color="var(--black)" fontSize="3xl">Detalle de la propiedad</Th>
+                      <Th color="var(--black)" fontSize="3xl">
+                        Detalle de la propiedad
+                      </Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -106,7 +120,9 @@ function DetallePropiedad() {
                       <Td>Precio de {inmueble.tipo_operacion}</Td>
                       <Td></Td>
                       <Td></Td>
-                      <Td textAlign="end">{inmueble.moneda} {inmueble.precio}</Td>
+                      <Td textAlign="end">
+                        {inmueble.moneda} {inmueble.precio}
+                      </Td>
                     </Tr>
                     <Tr>
                       <Td>Tipo de inmueble</Td>
@@ -153,7 +169,9 @@ function DetallePropiedad() {
                   </Tbody>
                 </Table>
               </TableContainer>
-              <Heading textTransform="uppercase" margin="15px">Descripcion</Heading>
+              <Heading textTransform="uppercase" margin="15px">
+                Descripcion
+              </Heading>
               <Text marginBottom="20px">{inmueble.descripcion}</Text>
               <Flex id="map" width="100%" height="300px"></Flex>
             </Flex>
