@@ -34,8 +34,8 @@ function HeaderAdmin(edit) {
           w="10rem"
           src={
             edit
-              ? "../public/assets/logoSinFondo.png"
-              : "public/assets/logoSinFondo.png"
+              ? "../assets/logoSinFondo.png"
+              : "/assets/logoSinFondo.png"
           }
           alt="logo"
         />

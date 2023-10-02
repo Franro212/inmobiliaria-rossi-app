@@ -1,4 +1,3 @@
-////////import componentes//////////////////////////
 import Header from "../../Components/Header/Header";
 import Main from "../../Components/Main/Main";
 import Servicios from "../../Components/servicios/Servicios";

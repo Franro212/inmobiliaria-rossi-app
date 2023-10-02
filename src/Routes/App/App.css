@@ -44,7 +44,7 @@
 }
 
 .imgApp {
-  background-image: url("public/assets/houseInterior.jpg");
+  background-image: url("assets/houseInterior.jpg");
   height: 20rem;
   background-position: center;
   background-repeat: no-repeat;

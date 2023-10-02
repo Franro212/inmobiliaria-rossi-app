@@ -27,13 +27,17 @@ function FormContact() {
               control={control}
               rules={{
                 required: "Este campo es requerido",
+                minLength: {
+                  value: 5,
+                  message: "Debes ingresar tu nombre completo",
+                },
                 maxLength: {
                   value: 50,
-                  message: "Nombre demasiado largo",
+                  message: "No puedes ingresar mas de 50 caracteres",
                 },
               }}
               render={({ field }) => (
-                <input className="inputForm" placeholder="Nombre" {...field} />
+                <input className="inputForm" placeholder="Nombre Completo" {...field} />
               )}
             />
             <p className="textError">*{errors.name && errors.name.message}</p>

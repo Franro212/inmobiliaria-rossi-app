@@ -76,18 +76,25 @@ function DetallePropiedad() {
         });
     }
   }, [inmueble]);
+
   return (
     <>
       <Header />
-      <Flex flexDirection={"row"} margin={"100px 300px"}>
+      <Flex
+        flexDirection={{ base: "column", lg: "row" }}
+        margin={{ base: "20px", lg: "100px 300px" }}
+      >
         {inmueble && inmueble.images && inmueble.images.length > 0 ? (
-          <Flex width={"50%"} height={"100vh"} marginRight={"20px"}>
+          <Flex
+            width={{ base: "100%", lg: "50%" }}
+            marginRight={{ base: 0, lg: "20px" }}
+          >
             <Carousel showThumbs={false} dynamicHeight>
               {inmueble.images.map((image, index) => (
                 <div key={index}>
                   <Image
-                    width={"95%"}
-                    height={"80%"}
+                    width="100%"
+                    height="auto"
                     src={`data:${image.contentType};base64,${image.data}`}
                     alt={`imagen ${index + 1} de inmueble`}
                   />
@@ -98,8 +105,8 @@ function DetallePropiedad() {
         ) : null}
 
         {inmueble ? (
-          <Flex width={"50%"}>
-            <Flex width="100%" flexDirection={"column"}>
+          <Flex width={{ base: "100%", lg: "50%" }}>
+            <Flex width="100%" flexDirection="column">
               <TableContainer>
                 <Table size="lg" variant="simple">
                   <Thead>
@@ -111,66 +118,48 @@ function DetallePropiedad() {
                   </Thead>
                   <Tbody>
                     <Tr>
-                      <Td>Tipo de operacion</Td>
-                      <Td></Td>
-                      <Td></Td>
+                      <Td>Tipo de operación</Td>
                       <Td textAlign="end">{inmueble.tipo_operacion}</Td>
                     </Tr>
                     <Tr>
                       <Td>Precio de {inmueble.tipo_operacion}</Td>
-                      <Td></Td>
-                      <Td></Td>
                       <Td textAlign="end">
                         {inmueble.moneda} {inmueble.precio}
                       </Td>
                     </Tr>
                     <Tr>
                       <Td>Tipo de inmueble</Td>
-                      <Td></Td>
-                      <Td></Td>
                       <Td textAlign="end">{inmueble.tipo_inmueble}</Td>
                     </Tr>
                     <Tr>
                       <Td>Departamento</Td>
-                      <Td></Td>
-                      <Td></Td>
                       <Td textAlign="end">{inmueble.departamento}</Td>
                     </Tr>
                     <Tr>
                       <Td>Ciudad</Td>
-                      <Td></Td>
-                      <Td></Td>
                       <Td textAlign="end">{inmueble.ciudad}</Td>
                     </Tr>
                     <Tr>
                       <Td>Dormitorios</Td>
-                      <Td></Td>
-                      <Td></Td>
                       <Td textAlign="end">{inmueble.dormitorio}</Td>
                     </Tr>
                     <Tr>
                       <Td>Baños</Td>
-                      <Td></Td>
-                      <Td></Td>
                       <Td textAlign="end">{inmueble.banio}</Td>
                     </Tr>
                     <Tr>
                       <Td>Superficie del terreno</Td>
-                      <Td></Td>
-                      <Td></Td>
                       <Td textAlign="end">{inmueble.m2_terreno} m²</Td>
                     </Tr>
                     <Tr>
                       <Td>Superficie edificada</Td>
-                      <Td></Td>
-                      <Td></Td>
                       <Td textAlign="end">{inmueble.m2_edificado} m²</Td>
                     </Tr>
                   </Tbody>
                 </Table>
               </TableContainer>
               <Heading textTransform="uppercase" margin="15px">
-                Descripcion
+                Descripción
               </Heading>
               <Text marginBottom="20px">{inmueble.descripcion}</Text>
               <Flex id="map" width="100%" height="300px"></Flex>

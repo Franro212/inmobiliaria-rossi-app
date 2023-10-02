@@ -1,4 +1,4 @@
-import { Flex, Select, FormControl } from "@chakra-ui/react";
+import { Stack, Select, FormControl, Flex } from "@chakra-ui/react";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import CardInmuebleHome from "../../Components/CardInmueble/CardInmueble";
@@ -35,6 +35,7 @@ function Propiedades() {
       [filterName]: value,
     }));
   };
+
   const applyFilters = (inmuebles, filtros) => {
     return inmuebles.filter((inmueble) => {
       const pasaFiltros =
@@ -65,9 +66,9 @@ function Propiedades() {
           backgroundColor={"var(--gray)"}
           boxShadow={"md"}
           padding={"20px"}
-          width="50%"
+          width={{ base: "90%", md: "50%" }}
         >
-          <Flex gap={"20px"}>
+          <Stack direction={{ base: "column", md: "row" }} spacing={4}>
             <Select
               fontSize={"15px"}
               backgroundColor={"var(--white)"}
@@ -93,8 +94,6 @@ function Propiedades() {
               <option value="Venta">Venta</option>
               <option value="Alquiler">Alquiler</option>
             </Select>
-          </Flex>
-          <Flex gap={"20px"}>
             <Select
               fontSize={"15px"}
               backgroundColor={"var(--white)"}
@@ -122,10 +121,16 @@ function Propiedades() {
               <option value="4">4</option>
               <option value="5">5</option>
             </Select>
-          </Flex>
+          </Stack>
         </FormControl>
       </Flex>
-      <Flex margin="100px 330px" wrap="wrap" gap={"50px"}>
+      <Flex
+        flexDirection={{ base: "column", md: "row" }}
+        margin={{ base: "50px 30px", md: "100px 330px" }}
+        alignItems={{ base: "center", md: "flex-start" }}
+        wrap="wrap"
+        gap={"50px"}
+      >
         {inmuebles.map((inmueble, index) => (
           <Link to={`/pageDetallePropiedade/${inmueble._id}`} key={index}>
             <CardInmuebleHome inmueble={inmueble} />

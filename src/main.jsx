@@ -1,14 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-// ============ IMPORT ROUTE ===============
 import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
 } from "react-router-dom";
 
-// ============ IMPORT COMPONENTS ===============
 import RegistrarInmueble from "./Components/ComponentsInmu/RegistrarInmueble";
 import GestionPublicaciones from "./Pages/GestionPublicaciones/GestionPublicaciones";
 import GestionUsuarios from "./Pages/GestionUsuarios/GestionUsuarios";
@@ -17,8 +15,6 @@ import PageLogin from "./Pages/PageLogin/PageLogin";
 
 import App from "./Routes/App/App";
 
-// ============ STYLE ===============
-
 import { ChakraProvider } from "@chakra-ui/react";
 import "./index.css";
 import Empresa from "./Pages/Empresa/Empresa";
@@ -26,7 +22,7 @@ import Estudio from "./Pages/Estudio/Estudio";
 import Propiedades from "./Pages/Propiedades/Propiedades";
 import DetallePropiedad from "./Pages/DetallePropiedad/DetallePropiedad";
 
-//---------------- Rutas protegidas --------------//
+
 
 const ProtectedRoute = ({ children }) => {
   const token = sessionStorage.getItem("token");

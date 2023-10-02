@@ -49,7 +49,6 @@ function RegistroInmueble() {
         try {
           const response = await getInmueblePorId(id);
           setInmuebleId(response.data);
-          // Establece los valores iniciales de los campos del formulario.
           Object.keys(response.data).forEach((key) => {
             setValue(key, response.data[key]);
           });
