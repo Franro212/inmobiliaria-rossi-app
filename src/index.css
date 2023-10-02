@@ -1,18 +1,15 @@
 /* EN ESTE ARCHIVO .CSS SE PONDRÁN TODOS LOS ESTILOS GENERALIZADOS */
-:root{
-
- --red: #bd212e;
- --black: #141414;
- --gray: #F5F5F5; 
- --white: #FFFFFF;
- --red-second: #a4010f;
- --gray-second: #dadada;
-
+:root {
+  --red: #bd212e;
+  --black: #141414;
+  --gray: #f5f5f5;
+  --white: #ffffff;
+  --red-second: #a4010f;
+  --gray-second: #dadada;
 }
 
-
 * {
-  margin: 0 ;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
@@ -20,23 +17,15 @@
 html {
   font-size: 62.5%;
   zoom: 75%;
-  
 }
-body{
-  font-family:'Montserrat', sans-serif; 
+body {
+  font-family: "Montserrat", sans-serif;
   font-size: 1.8rem;
   color: var(--black);
 }
 
-
-
-
-
-
-  /* Estilos de botones  */
-
-.btnRed, 
-.btnGray{
+.btnRed,
+.btnGray {
   text-align: center;
   font-size: 1.6rem;
   border: none;
@@ -45,38 +34,30 @@ body{
   transition: 0.5s;
 }
 
-
-  /* Estilos de botones rojos */
-
-.btnRed{
+.btnRed {
   background-color: var(--red);
-  color:white;
+  color: white;
   height: 6rem;
   width: 20rem;
 }
 
-
-.btnRed:hover{
+.btnRed:hover {
   background-color: var(--red-second);
 }
 
 
- /* Estilos de botones grises */
-
- .btnGray{
+.btnGray {
   background-color: var(--gray);
   color: var(--black);
   height: 5rem;
   width: 14rem;
 }
 
-
-.btnGray:hover{
+.btnGray:hover {
   background-color: var(--gray-second);
 }
 
-.spanRed{
-    color: var(--red);
-    background: none;
-
+.spanRed {
+  color: var(--red);
+  background: none;
 }
