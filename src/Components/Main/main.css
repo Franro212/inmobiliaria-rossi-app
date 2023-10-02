@@ -1,5 +1,5 @@
 .mainContainer {
-  background-image: url("assets/banner3.png");
+  background-image: url("/assets/banner3.png");
   height: 70rem;
   position: relative;
   background-position: center;
