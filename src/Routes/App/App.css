@@ -83,7 +83,7 @@
   .containerCard {
     display: flex;
     flex-wrap: wrap;
-    margin: 0;
+    margin: 5rem 0;
     gap: 0.5rem;
     width: 80%;
   }
