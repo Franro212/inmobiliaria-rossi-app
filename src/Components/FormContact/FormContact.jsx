@@ -26,21 +26,21 @@ function FormContact() {
               name="name"
               control={control}
               rules={{
-                required: "Este campo es requerido",
+                required: "*Este campo es requerido",
                 minLength: {
-                  value: 5,
-                  message: "Debes ingresar tu nombre completo",
+                  value: 10,
+                  message: "*Debes ingresar tu nombre completo",
                 },
                 maxLength: {
                   value: 50,
-                  message: "No puedes ingresar mas de 50 caracteres",
+                  message: "*No puedes ingresar mas de 50 caracteres",
                 },
               }}
               render={({ field }) => (
                 <input className="inputForm" placeholder="Nombre Completo" {...field} />
               )}
             />
-            <p className="textError">*{errors.name && errors.name.message}</p>
+            <p className="textError">{errors.name && errors.name.message}</p>
           </div>
 
           <div>
@@ -48,17 +48,17 @@ function FormContact() {
               name="email"
               control={control}
               rules={{
-                required: "Este campo es requerido",
+                required: "*Este campo es requerido",
                 pattern: {
                   value: /^\S+@\S+$/i,
-                  message: "Correo electrónico inválido",
+                  message: "*Correo electrónico inválido",
                 },
               }}
               render={({ field }) => (
                 <input className="inputForm" placeholder="Email" {...field} />
               )}
             />
-            <p className="textError">*{errors.email && errors.email.message}</p>
+            <p className="textError">{errors.email && errors.email.message}</p>
           </div>
 
           <div>
@@ -66,14 +66,14 @@ function FormContact() {
               name="message"
               control={control}
               rules={{
-                required: "Este campo es requerido",
+                required: "*Este campo es requerido",
                 maxLength: {
                   value: 1000,
-                  message: "Mensaje demasiado largo",
+                  message: "*Mensaje demasiado largo",
                 },
                 minLength: {
                   value: 10,
-                  message: "Mensaje demasiado corto",
+                  message: "*Mensaje demasiado corto",
                 },
               }}
               render={({ field }) => (
@@ -84,7 +84,7 @@ function FormContact() {
                 />
               )}
             />
-            <p className="textError">*{errors.message && errors.message.message}</p>
+            <p className="textError">{errors.message && errors.message.message}</p>
           </div>
 
           <br />
