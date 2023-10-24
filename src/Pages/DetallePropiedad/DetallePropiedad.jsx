@@ -86,28 +86,35 @@ function DetallePropiedad() {
       >
         {inmueble && inmueble.images && inmueble.images.length > 0 ? (
           <Flex
+          flexDirection={"column"}
             width={{ base: "100%", lg: "50%" }}
             marginRight={{ base: 0, lg: "20px" }}
           >
             <Carousel showThumbs={false} dynamicHeight>
               {inmueble.images.map((image, index) => (
-                <div key={index}>
+                <div key={index} style={{ width: "100%", height: "450px" }}>
                   <Image
                     width="100%"
-                    height="auto"
+                    height="100%"
                     src={`data:${image.contentType};base64,${image.data}`}
                     alt={`imagen ${index + 1} de inmueble`}
                   />
                 </div>
               ))}
             </Carousel>
+            <Flex marginTop={"20px"} id="map" width="100%" height="300px"></Flex>
           </Flex>
         ) : null}
 
         {inmueble ? (
           <Flex width={{ base: "100%", lg: "50%" }}>
             <Flex width="100%" flexDirection="column">
-              <TableContainer>
+              <TableContainer
+                boxShadow={" 0px 5px 17px 5px rgba(218,218,218,1);"}
+                marginTop={"15px"}
+                borderRadius={"20px"}
+                backgroundColor={"var(--gray)"}
+              >
                 <Table size="lg" variant="simple">
                   <Thead>
                     <Tr>
@@ -158,11 +165,26 @@ function DetallePropiedad() {
                   </Tbody>
                 </Table>
               </TableContainer>
-              <Heading textTransform="uppercase" margin="15px">
+              <Heading
+                borderRadius={"20px 20px 0 0"}
+                backgroundColor={"var(--gray)"}
+                textTransform="uppercase"
+                marginTop={"15px"}
+                paddingLeft={"10px"}
+                paddingTop={"20px"}
+              >
                 Descripción
               </Heading>
-              <Text marginBottom="20px">{inmueble.descripcion}</Text>
-              <Flex id="map" width="100%" height="300px"></Flex>
+              <Text
+                boxShadow={" 0px 18px 20px 5px rgba(218,218,218,1);"}
+                borderRadius={"0 0 20px 20px"}
+                padding={"10PX"}
+                backgroundColor={"var(--gray)"}
+                marginBottom="20px"
+              >
+                {inmueble.descripcion}
+              </Text>
+              
             </Flex>
           </Flex>
         ) : null}

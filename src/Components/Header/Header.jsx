@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./header.css";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 function Header() {
   const [isOpen, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="header">
@@ -25,6 +26,11 @@ function Header() {
             </Link>
           </li>
           <li className="liHeader">
+            <Link className="ancla" to={"/pagePropiedades"}>
+              Propiedades
+            </Link>
+          </li>
+          <li onClick={() => navigate("/")} className="liHeader">
             <a
               className="ancla"
               onClick={() => setOpen(!isOpen)}
@@ -38,11 +44,11 @@ function Header() {
               Estudio
             </Link>
           </li>
-          <li className="liHeader">
+          <li onClick={() => navigate("/")} className="liHeader">
             <a
               className="ancla"
               onClick={() => setOpen(!isOpen)}
-              href="#contacto"
+              href="/#contacto"
             >
               Contacto
             </a>
