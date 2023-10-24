@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { registerUser } from "../../Api/Rule_user";
 
 import { AddIcon } from "@chakra-ui/icons";
@@ -30,7 +30,12 @@ function RegisterUser() {
     desc: "",
   });
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = async (data) => {
     try {
@@ -106,81 +111,167 @@ function RegisterUser() {
           <ModalCloseButton m="5" size={20}></ModalCloseButton>
           <ModalBody pb={10}>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Input
-                autoComplete
-                required
-                bg="var(--gray)"
-                border="none"
-                _focus={{
-                  border: "1px solid var(--red)",
-                }}
-                py="10"
-                size="lg"
-                rounded="20"
-                my="5"
-                placeholder="Nombre"
-                type="text"
+              <Controller
                 name="firstName"
-                {...register("firstName")}
-              />
-              <br />
-              <Input
-                autoComplete
-                required
-                bg="var(--gray)"
-                border="none"
-                _focus={{
-                  border: "1px solid var(--red)",
+                control={control}
+                rules={{
+                  required: "*Este campo es requerido",
+                  minLength: {
+                    value: 3,
+                    message: "*Debe tener minimo 3 letras",
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: "*No puedes ingresar mas de 20 caracteres",
+                  },
                 }}
-                py="10"
-                size="lg"
-                rounded="20"
-                my="5"
-                placeholder="Apellido"
-                type="text"
+                render={({ field }) => (
+                  <Input
+                    autoComplete="off"
+                    bg="var(--gray)"
+                    border="none"
+                    _focus={{
+                      border: "1px solid var(--red)",
+                    }}
+                    py="10"
+                    size="lg"
+                    rounded="20"
+                    my="5"
+                    placeholder="Nombre"
+                    type="text"
+                    name="firstName"
+                    {...register("firstName")}
+                    {...field}
+                  />
+                )}
+              />
+              <p className="textError">
+                {errors.firstName && errors.firstName.message}
+              </p>
+
+              <br />
+              <Controller
                 name="lastName"
-                {...register("lastName")}
-              />
-              <br />
-
-              <Input
-                autoComplete
-                fontSize="xxl"
-                bg="var(--gray)"
-                border="none"
-                _focus={{
-                  border: "1px solid var(--red)",
+                control={control}
+                rules={{
+                  required: "*Este campo es requerido",
+                  minLength: {
+                    value: 3,
+                    message: "*Debe tener minimo 3 letras",
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: "*No puedes ingresar mas de 20 caracteres",
+                  },
                 }}
-                py="10"
-                size="lg"
-                rounded="20"
-                my="5"
-                className="input-form"
-                placeholder="Email"
-                type="email"
+                render={({ field }) => (
+                  <Input
+                    autoComplete="off"
+                    bg="var(--gray)"
+                    border="none"
+                    _focus={{
+                      border: "1px solid var(--red)",
+                    }}
+                    py="10"
+                    size="lg"
+                    rounded="20"
+                    my="5"
+                    placeholder="Apellido"
+                    type="text"
+                    name="lastName"
+                    {...register("lastName")}
+                    {...field}
+                  />
+                )}
+              />
+              <p className="textError">
+                {errors.lastName && errors.lastName.message}
+              </p>
+              <br />
+              <Controller
                 name="email"
-                {...register("email")}
-              />
-              <br />
-
-              <Input
-                autoComplete
-                fontSize="xxl"
-                bg="var(--gray)"
-                border="none"
-                _focus={{
-                  border: "1px solid var(--red)",
+                control={control}
+                rules={{
+                  required: "*Este campo es requerido",
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: "*Correo electrónico inválido",
+                  },
                 }}
-                py="10"
-                size="lg"
-                rounded="20"
-                my="5"
-                className="input-form"
-                placeholder="Contraseña"
-                type="password"
-                {...register("password")}
+                render={({ field }) => (
+                  <Input
+                    autoComplete="off"
+                    fontSize="xxl"
+                    bg="var(--gray)"
+                    border="none"
+                    _focus={{
+                      border: "1px solid var(--red)",
+                    }}
+                    py="10"
+                    size="lg"
+                    rounded="20"
+                    my="5"
+                    className="input-form"
+                    placeholder="Email"
+                    type="email"
+                    name="email"
+                    {...register("email")}
+                    {...field}
+                  />
+                )}
               />
+              <p className="textError">
+                {errors.email && errors.email.message}
+              </p>
+
+              <br />
+              <Controller
+                name="password"
+                control={control}
+                rules={{
+                  required: "*Este campo es requerido",
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]+$/,
+                    message:
+                      "*La contraseña debe contener al menos una letra mayúscula, una minúscula, un número y un carácter especial",
+                  },
+                  minLength: {
+                    value: 8,
+                    message: "*Debe tener minimo 8 carcteres",
+                  },
+                  maxLength: {
+                    value: 10,
+                    message: "*Debe ingresar maximo 10 carcteres",
+                  },
+                }}
+                render={({ field }) => (
+                  <Input
+                    autoComplete="off"
+                    fontSize="xxl"
+                    bg="var(--gray)"
+                    border="none"
+                    _focus={{
+                      border: "1px solid var(--red)",
+                    }}
+                    py="10"
+                    size="lg"
+                    rounded="20"
+                    my="5"
+                    className="input-form"
+                    placeholder="Contraseña"
+                    type="password"
+                    name="password"
+                    {...register("password")}
+                    {...field}
+                  />
+                )}
+              />
+              <p className="textError">
+                {errors.password && errors.password.message}
+              </p>
               <Select
+                required
                 placeholder="Tipo de usuario"
                 fontSize="xxl"
                 bg="var(--gray)"
@@ -191,12 +282,8 @@ function RegisterUser() {
                 my="5"
                 {...register("tipo_usuario")}
               >
-                <option  value="Admin">
-                  Administrador
-                </option>
-                <option value="Comun">
-                  Usuario
-                </option>
+                <option value="Admin">Administrador</option>
+                <option value="Comun">Usuario</option>
               </Select>
 
               <ModalFooter>

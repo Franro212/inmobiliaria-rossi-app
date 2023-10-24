@@ -2,9 +2,7 @@ import HeaderAdmin from "../../Components/Header/HeaderAdmin/HeaderAdmin";
 import ListUsers from "../../Components/ComponentsUser/ListUser";
 import RegisterUser from "../../Components/ComponentsUser/RegisterUser";
 
-
 import { Text, Flex, Box } from "@chakra-ui/react";
-
 
 function GestionUsuarios() {
   return (

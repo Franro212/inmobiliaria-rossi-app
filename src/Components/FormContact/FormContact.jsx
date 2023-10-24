@@ -50,7 +50,7 @@ function FormContact() {
               rules={{
                 required: "*Este campo es requerido",
                 pattern: {
-                  value: /^\S+@\S+$/i,
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                   message: "*Correo electrónico inválido",
                 },
               }}
